@@ -1,0 +1,6 @@
+<form [formGroup]="credentialForm" (ngSubmit)="onSubmit()" *ngIf="!authService.loggedIn()">
+  <input type="text" placeholder="username" formControlName="username">
+  <input type="password" placeholder="password" formControlName="password">
+  <button type="submit">Submit</button>
+  <p *ngIf="authService.errorCredentials">Erreur de login / mdp</p>
+</form>

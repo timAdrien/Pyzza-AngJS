@@ -1,0 +1,30 @@
+
+<div class="header">
+  <button id="closeCrossButton" mat-icon-button tabindex="-1" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h2 mat-dialog-title>🍕Ajout</h2>
+</div>
+<mat-dialog-content>
+
+  <div class="example-container">
+    <mat-form-field
+      floatPlaceholder="true">
+      <input matInput placeholder="Nom" [(ngModel)]="pizza.nom">
+    </mat-form-field>
+
+    <mat-form-field
+      floatPlaceholder="true">
+      <input matInput placeholder="Prix" type="number" [(ngModel)]="pizza.prix">
+    </mat-form-field>
+
+    <mat-form-field
+      floatPlaceholder="true">
+      <textarea matInput placeholder="Description" [(ngModel)]="pizza.description"></textarea>
+    </mat-form-field>
+  </div>
+
+</mat-dialog-content>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="primary" (click)="confirmAjouterPizza()"><mat-icon>check_circle</mat-icon> Miam !</button>
+</div>

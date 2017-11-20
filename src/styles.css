@@ -1,0 +1,10 @@
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+  background-color: #e6752f !important;
+}
+
+.navbar-nav li {
+  font-size: 20px;
+}
