@@ -1,0 +1,23 @@
+<label class="uploader" ondragover="return false;"
+       [class.loaded]="loaded"
+       [style.outlineColor]="dragging ? draggingColor : baseColor"
+       [style.outlineColor]="imageLoaded ? loadedColor: baseColor"
+       (dragenter)="handleDragEnter()"
+       (dragleave)="handleDragLeave()"
+       (drop)="handleDrop($event)">
+
+  <i class="fa fa-upload" aria-hidden="true"
+     [style.color]="dragging
+            ? ((imageSrc.data.length > 0) ? overlayColor : draggingColor)
+            : ((imageSrc.data.length > 0) ? overlayColor : baseColor)"
+     [style.opacity]="imageLoaded ? 0 : 1"></i>
+
+  <img
+    [src]="imageSrc.contentType ? 'data:'+imageSrc.contentType+';base64,'+imageSrc.data : ''"
+    (load)="handleImageLoad()"
+    [class.loaded]="imageLoaded"
+    [style.z-index]="imageLoaded ? 100 : 0"/>
+
+  <input type="file" name="file" accept="image/*"
+         (change)="handleInputChange($event)">
+</label>

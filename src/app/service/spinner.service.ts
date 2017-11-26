@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {SpinnerComponent} from "../spinner-loader/spinner-loader.component";
+import {SpinnerComponent} from "../components/spinner-loader/spinner-loader.component";
 
 @Injectable()
 export class SpinnerService {
@@ -21,10 +21,7 @@ export class SpinnerService {
   }
 
   show(spinnerNom: string): void {
-    console.log(spinnerNom);
-    console.log(this.spinnerCache);
     this.spinnerCache.forEach(spinner => {
-      console.log(spinner.name);
       if (spinner.name === spinnerNom) {
         spinner.isLoading = true;
       }

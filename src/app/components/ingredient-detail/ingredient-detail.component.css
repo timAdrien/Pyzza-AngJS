@@ -1,0 +1,14 @@
+
+.ingredientContainer {
+  margin-top: 10px;
+  background-color: #ffffff;
+}
+
+.ingredientContainer form > mat-form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingredientContainer form > * {
+  width: 100%;
+}

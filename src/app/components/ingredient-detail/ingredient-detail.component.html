@@ -1,0 +1,24 @@
+
+<div class="container ingredientContainer">
+  <div class="d-flex justify-content-center">
+    <form [formGroup]="ingredientForm" (ngSubmit)="onSubmit()" novalidate>
+      <mat-form-field>
+        <input matInput required placeholder="Nom" type="text" class="example-right-align" formControlName="nom">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput required placeholder="Poids" type="number" class="example-right-align" formControlName="poids">
+        <span matPrefix><i class="fa fa-balance-scale"></i>&nbsp;</span>
+        <span matSuffix>g</span>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput required placeholder="Prix" type="number" class="example-right-align" formControlName="prix">
+        <span matPrefix>€&nbsp;</span>
+        <span matSuffix>.00</span>
+      </mat-form-field>
+      <div style="margin-bottom: 1em">
+        <button type="submit" [disabled]="ingredientForm.pristine || !ingredientForm.valid" class="btn btn-success">Sauver</button> &nbsp;
+        <button type="reset" [disabled]="ingredientForm.pristine" class="btn btn-danger">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

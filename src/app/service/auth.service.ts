@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BaseService } from './base.service';
 import { tokenNotExpired } from 'angular2-jwt';
 import { Router } from '@angular/router';
+import {AppConfig} from "../app-config";
 
 @Injectable()
-export class AuthService extends BaseService{
+export class AuthService {
 
   errorCredentials = false;
-  constructor(http: HttpClient, private router: Router) {
-    super(http);
-    let token = localStorage.getItem('connect_token');
-    if(token){
-      this.setHeadersToken(token);
+  constructor(private http: HttpClient, private router: Router, private appConfig: AppConfig) {
+      let token = localStorage.getItem('connect_token');
+      if(token){
+        this.appConfig.setHeadersToken(token);
     }
   }
 
   login(credentials) {
-    this.http.post(`${this.url}/login`, credentials).subscribe(token => {
+    this.http.post(`${this.appConfig.getUrl()}/login`, credentials).subscribe(token => {
       localStorage.setItem('connect_token', <string>token);
-      this.setHeadersToken(token);
+      this.appConfig.setHeadersToken(token);
       this.router.navigateByUrl('/pizza/liste');
     }, res => {
-      console.log(res.error.message);
       this.errorCredentials = true;
     });
   }

@@ -1,0 +1,2 @@
+-- Ne pas recharger TOUTES les pizzas sur l'update d'une de quelque part
+-- Get la pizza de la liste aulieu de la load serveur

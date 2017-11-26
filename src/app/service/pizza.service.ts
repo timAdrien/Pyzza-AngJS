@@ -1,36 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Pizza } from '../model/pizza';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import * as _ from 'lodash';
-import * as io from 'socket.io-client';
-import {BaseService} from "./base.service";
-import {AuthHttp} from "angular2-jwt";
-import {RequestOptions} from '@angular/http';
-import {AuthService} from "./auth.service";
+import {AppConfig} from "../app-config";
 
 @Injectable()
-export class PizzaService extends BaseService {
+export class PizzaService {
 
-  constructor (http: HttpClient, private authService: AuthService) {
-    super(http);
-  }
+  constructor (private http: HttpClient, private appConfig: AppConfig) {}
 
   /* Début Socket */
 
   onRefresh() {
     return new Observable(observer => {
-      this.socket.on('refreshPizzas', (data) => {
+      this.appConfig.getSocket().on('refreshPizzas', (data) => {
         observer.next(data);
       });
       return () => {
-        this.socket.disconnect();
+        this.appConfig.getSocket().disconnect();
       };
     });
   }
 
   refresh(){
-    this.socket.emit('refreshPizzas');
+    this.appConfig.getSocket().emit('refreshPizzas');
   }
 
   /* Fin Socket */
@@ -39,24 +32,24 @@ export class PizzaService extends BaseService {
   /* Début REST */
 
   getAll(): Observable<Pizza[]> {
-    return this.http.get<Pizza[]>(`${this.url}/pizza/voir`, { headers: this.authService.headers });
+    return this.http.get<Pizza[]>(`${this.appConfig.getUrl()}/pizza/voir`, { headers: this.appConfig.getHeaders() });
   }
 
   getById(id): Observable<Pizza> {
-    return this.http.get<Pizza>(`${this.url}/pizza/voir/${id}`, { headers: this.authService.headers });
+    return this.http.get<Pizza>(`${this.appConfig.getUrl()}/pizza/voir/${id}`, { headers: this.appConfig.getHeaders() });
   }
 
   update(pizza): Observable<Pizza> {
-    return this.http.put<Pizza>(`${this.url}/pizza/modifier`, pizza, { headers: this.authService.headers });
+    return this.http.put<Pizza>(`${this.appConfig.getUrl()}/pizza/modifier`, pizza, { headers: this.appConfig.getHeaders() });
   }
 
   post(pizza): Observable<Pizza> {
-    return this.http.post<Pizza>(`${this.url}/pizza/create`, pizza, { headers: this.authService.headers });
+    return this.http.post<Pizza>(`${this.appConfig.getUrl()}/pizza/create`, pizza, { headers: this.appConfig.getHeaders() });
 
   }
 
   delete(id): Observable<Pizza> {
-    return this.http.delete<Pizza>(`${this.url}/pizza/supprimer/${id}`, { headers: this.authService.headers });
+    return this.http.delete<Pizza>(`${this.appConfig.getUrl()}/pizza/supprimer/${id}`, { headers: this.appConfig.getHeaders() });
   }
 
   /* Fin REST */

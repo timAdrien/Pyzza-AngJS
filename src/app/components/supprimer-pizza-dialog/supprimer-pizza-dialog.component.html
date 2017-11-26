@@ -1,0 +1,17 @@
+
+
+<div class="header">
+  <button id="closeCrossButton" mat-icon-button tabindex="-1" (click)="closeDialog()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h2 mat-dialog-title>🍕Supprimer</h2>
+</div>
+<mat-dialog-content>
+
+  Confimer la suppression de cette magnifique {{ pizza.nom }} ?
+
+</mat-dialog-content>
+<div mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" (click)="confirmSupprimerPizza()"><mat-icon>delete_forever</mat-icon> Ciao !</button>
+  <button mat-raised-button color="primary" (click)="closeDialog()">Lui donner encore une chance...</button>
+</div>

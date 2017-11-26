@@ -1,0 +1,32 @@
+
+<div class="container ingredientContainer">
+  <div class="row">
+    <div class="col">
+      <mat-list>
+        <div class="row">
+          <div class="col">
+            <div class="d-flex justify-content-start">
+              <h3 mat-subheader>Ingredients</h3>
+            </div>
+          </div>
+          <div class="col">
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-success" routerLink="../detail/"><i class="fa fa-plus-square"></i> Ajouter</button>
+            </div>
+          </div>
+        </div>
+        <mat-list-item *ngFor="let ingredient of ingredients">
+          <i class="material-icons">keyboard_arrow_right</i> {{ ingredient.nom }} &nbsp;
+          <button class="btn btn-warning btn-small" routerLink="../detail/{{ ingredient._id }}"><i class="fa fa-pencil"></i></button>
+          &nbsp;
+          <popover-content #myPopover placement="right" [closeOnClickOutside]="true">
+            <div style="padding:5px" >
+              Supprimer ? <button class="btn btn-danger btn-sm" (click)="confirmSupprimerIngredient(ingredient)"> OK</button>
+            </div>
+          </popover-content>
+          <button class="btn btn-danger btn-small" [popover]="myPopover"><i class="material-icons">delete_forever</i></button>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</div>

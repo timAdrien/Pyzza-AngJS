@@ -1,0 +1,35 @@
+
+@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
+
+.ingredientContainer {
+  margin-top: 10px;
+  background-color: #ffffff;
+}
+
+.btn-small {
+  height: 25px;
+  width: 25px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.btn-small i {
+  font-size: 20px;
+}
+
+.popover-content {
+  background-color: #f6f2f1;
+  border-radius: 4px;
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+}
+
+popover-content div.popover {
+  margin-left:15px;
+}
+
+popover-content {
+
+  z-index: 1;
+}
