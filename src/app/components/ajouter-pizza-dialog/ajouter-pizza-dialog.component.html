@@ -25,6 +25,13 @@
       floatPlaceholder="true">
       <textarea matInput placeholder="Description" [(ngModel)]="pizza.description"></textarea>
     </mat-form-field>
+
+
+    <mat-form-field>
+      <mat-select placeholder="Ingredients" [(ngModel)]="selectedIngredients" [formControl]="toppings" multiple>
+        <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient._id">{{ingredient.nom}}</mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
 </mat-dialog-content>

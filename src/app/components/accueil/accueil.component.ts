@@ -14,6 +14,7 @@ import { SpinnerComponent } from '../spinner-loader/spinner-loader.component';
 import {SpinnerService} from "../../service/spinner.service";
 import {ToastsManager} from "ng2-toastr";
 import {FunctionService} from "../../service/function.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-accueil',
@@ -24,7 +25,7 @@ import {FunctionService} from "../../service/function.service";
 })
 export class AccueilComponent implements OnInit {
 
-  order = "nom";
+  order = "prix";
   ascending = false;
   filterNom = "";
   pizzas: Pizza[];
@@ -34,6 +35,7 @@ export class AccueilComponent implements OnInit {
   spinner: SpinnerComponent;
 
   constructor(  private pizzaService: PizzaService,
+                private router: Router,
                 public dialog: MatDialog,
                 private spinnerService: SpinnerService,
                 private toastr: ToastsManager,
@@ -87,10 +89,10 @@ export class AccueilComponent implements OnInit {
     this.spinnerService.show('loader');
     this.pizzaService.post(pizzaToAdd).subscribe(pizzaAdded => {
       this.spinnerService.hide('loader');
-      this.pizzaService.refresh();
-      this.pizzas.push(pizzaAdded);
       this.pizzaCurrent = null;
       this.toastr.success("Pizza correctement créée !", "Ajout");
+      this.pizzaService.refresh();
+      location.reload();
     }, error => {
       this.toastr.error("Erreur dans l'ajout de la pizza...", "Erreur");
       this.errorMessage = <any>error
@@ -122,16 +124,13 @@ export class AccueilComponent implements OnInit {
   confirmEditerPizza(pizzaToUpdate) {
     if(!_.isEqual(pizzaToUpdate, JSON.parse(this.pizzaBefore))){
       let pizzaGoingToBeUpdate = this.functionService.getDiff(JSON.parse(this.pizzaBefore), pizzaToUpdate);
-      console.log(pizzaToUpdate)
-      console.log(pizzaGoingToBeUpdate)
       this.spinnerService.show('loader');
       this.pizzaService.update(pizzaGoingToBeUpdate).subscribe(pizzaUpdated => {
+        this.toastr.success("Pizza correctement mise à jour !", "Maj");
         this.spinnerService.hide('loader');
         this.pizzaService.refresh();
-        let indexPizza = this.pizzas.findIndex(pizzaListe => pizzaListe._id == pizzaUpdated._id);
-        this.pizzas[indexPizza] = pizzaUpdated;
         this.pizzaCurrent = null;
-        this.toastr.success("Pizza correctement mise à jour !", "Maj");
+        location.reload();
       }, error => {
         this.toastr.error("Erreur dans la modification de la pizza...", "Erreur");
         this.errorMessage = <any>error
@@ -168,12 +167,18 @@ export class AccueilComponent implements OnInit {
     this.pizzaService.delete(pizzaToDelete._id).subscribe(() => {
       this.spinnerService.hide('loader');
       this.pizzaService.refresh();
-      let indexPizza = this.pizzas.findIndex(pizzaListe => pizzaListe._id == pizzaToDelete._id);
-      if (indexPizza !== -1) {
-        this.pizzas.splice(indexPizza, 1);
-      }
+      /*
+      Update local ne marche pas...
+
+      let pizzaaa = this.pizzas.find(pizzaListe => pizzaListe._id == pizzaToDelete._id);
+      let indexOfPizza = this.pizzas.indexOf(pizzaaa);
+      console.log(indexOfPizza)
+      if (indexOfPizza !== -1) {
+        this.pizzas.splice(indexOfPizza, 1);
+      }*/
       this.pizzaCurrent = null;
       this.toastr.success("Pizza correctement supprimée", "Suppression");
+      location.reload();
     }, error => {
       this.toastr.error("Erreur dans la suppression de la pizza...", "Erreur");
       this.errorMessage = <any>error

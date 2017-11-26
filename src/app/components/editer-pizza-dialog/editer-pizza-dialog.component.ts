@@ -58,6 +58,9 @@ export class EditerPizzaDialogComponent implements OnInit {
 
   confirmEditerPizza() {
     let pizza = this.pizza;
+    if (pizza.ingredient_ids == undefined){
+      pizza.ingredient_ids = [];
+    }
     this.selectedIngredients.forEach(function (ingredientId) {
       pizza.ingredient_ids.push({_id: ingredientId, nom: '', poids: 0, prix: 0});
     });
@@ -86,6 +89,9 @@ export class EditerPizzaDialogComponent implements OnInit {
   setSelectedValues() {
     let pizza = this.pizza;
     let selectedIngredients = this.selectedIngredients;
+    if (pizza.ingredient_ids == undefined){
+      pizza.ingredient_ids = [];
+    }
     this.ingredients.forEach(function (ingredient) {
       if (pizza.ingredient_ids.find(ing => ing._id == ingredient._id)) {
         selectedIngredients.push(ingredient._id);

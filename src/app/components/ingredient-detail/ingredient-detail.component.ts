@@ -38,8 +38,8 @@ export class IngredientDetailComponent implements OnInit {
     this.edition = false;
     this.ingredientForm = new FormGroup({
       nom: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      prix: new FormControl('', [Validators.required]),
-      poids: new FormControl('', [Validators.required])
+      prix: new FormControl('', [Validators.required, Validators.min(0)]),
+      poids: new FormControl('', [Validators.required, Validators.min(0)])
     });
     this.ingredientCurrent = new Ingredient();
 

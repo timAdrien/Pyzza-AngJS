@@ -18,7 +18,7 @@
     <div *ngFor="let pizza of pizzas | pipeOrderPizza:order:ascending | pipeFilterNomPizza:filterNom:true; let i = index;" class="col-sm-6 col-md-3" style="margin-top:10px; margin-bottom:10px;">
         <mat-card class="example-card">
           <mat-card-content>
-            <img mat-card-image style="padding:10px" [src]="pizza.photo.data ? 'data:'+pizza.photo.contentType+';base64,'+pizza.photo.data : ''" alt="Photo of a Shiba Inu">
+            <img mat-card-image style="padding:10px" [src]="pizza.photo.data ? 'data:'+pizza.photo.contentType+';base64,'+pizza.photo.data : ''" alt="Photo de la pizza">
             <mat-card-title>{{ pizza.nom }}</mat-card-title>
             <mat-card-subtitle>Prix: {{ pizza.prix }}</mat-card-subtitle>
             <p>
